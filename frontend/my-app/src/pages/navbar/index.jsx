@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react"
-import { Box, FormControl, IconButton, Input, InputBase, Menu, MenuItem, Select, Typography, useMediaQuery } from "@mui/material"
+import { Box, FormControl, IconButton, InputBase, MenuItem, Select, Typography, useMediaQuery } from "@mui/material"
 import { useState } from "react"
 import { useNavigate } from "react-router"
 import { FlexBetween } from "./flexBetween"
@@ -15,7 +15,6 @@ import { DarkMode, LightMode } from "@mui/icons-material"
 
 export const Navbar = () => {
     const [isMobileMenuToggled, setisMobileMenuToggled] = useState(false)
-    
     const theme = useTheme()
     const alt = theme.palette.background.alt
     const primaryLight = theme.palette.primary.light
@@ -24,9 +23,8 @@ export const Navbar = () => {
     const isNonMobileScreen = useMediaQuery('(min-width:1000px)')
     const navigate = useNavigate()
     const user = useSelector((state) => state.auth.user)
-    console.log(user)
-
     const dispatch = useDispatch()
+
     return (
         <FlexBetween padding='1rem 6%' backgroundColor={alt}>
             <FlexBetween gap={'1.75rem'}>
@@ -51,8 +49,8 @@ export const Navbar = () => {
                         </IconButton>
                     </FlexBetween>
                 )}
-
             </FlexBetween>
+
             {isNonMobileScreen ?
                 <FlexBetween gap={'2rem'}>
                     <IconButton onClick={() => dispatch(setMode())}>
@@ -86,7 +84,6 @@ export const Navbar = () => {
                         >
                             <MenuItem value={user.firstName}>
                                 <Typography>{user.firstName}</Typography>
-
                             </MenuItem>
                             <MenuItem onClick={() => dispatch(setLogout())}>log Out</MenuItem>
                         </Select>
@@ -94,12 +91,12 @@ export const Navbar = () => {
                 </FlexBetween>
                 : <FlexBetween>
                     <IconButton onClick={() => setisMobileMenuToggled(!isMobileMenuToggled)}>
-
-                            <MenuIcon />
+                        <MenuIcon />
                     </IconButton>
-                </FlexBetween>}
-            {!isNonMobileScreen && isMobileMenuToggled && (
+                </FlexBetween>
+            }
 
+            {!isNonMobileScreen && isMobileMenuToggled && (
                 <Box
                     sx={{
                         position: 'fixed',
@@ -117,7 +114,7 @@ export const Navbar = () => {
                         </IconButton>
                     </Box>
                     <Box>
-                        <FlexBetween sx = {{display:'flex', flexDirection:'column'}} gap={'2rem'}>
+                        <FlexBetween sx={{ display: 'flex', flexDirection: 'column' }} gap={'2rem'}>
                             <IconButton onClick={() => dispatch(setMode())}>
                                 {
                                     theme.palette.mode === 'light'
@@ -156,14 +153,9 @@ export const Navbar = () => {
                             </FormControl>
                         </FlexBetween>
                         : <FlexBetween>
-                            <IconButton onClick={() => setisMobileMenuToggled(!isMobileMenuToggled)}>
-
-
-                            </IconButton>
+                            <IconButton onClick={() => setisMobileMenuToggled(!isMobileMenuToggled)}></IconButton>
                         </FlexBetween>
                     </Box>
-
-
                 </Box>
             )}
         </FlexBetween>

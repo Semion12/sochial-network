@@ -14,39 +14,35 @@ import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import axios from "axios"
 import { setPosts } from "../../state/authReducer"
 
-
-const MyPostWidget = ({pictureUrl}) => {
+const MyPostWidget = ({ pictureUrl }) => {
     const { _id } = useSelector(state => state.auth.user)
-    
     const { token } = useSelector(state => state.auth)
-
     const theme = useTheme()
     const medium = theme.palette.neutral.medium
     const [post, setPost] = useState('')
     const [isImage, setIsImage] = useState(false)
     const [image, setImage] = useState(null)
-    console.log(image)
     const dispatch = useDispatch()
     const handlePost = async () => {
         const formData = new FormData()
         formData.append('userId', _id)
         formData.append('description', post)
-        if (image){
+        if (image) {
             formData.append('avatar', image)
             formData.append('picturePath', image.name)
-            
+
         }
         await axios.post('http://localhost:3001/posts', formData, {
-            headers:{
-                Authorization:`Bearer ${token}`
+            headers: {
+                Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            
+
             dispatch(setPosts(response.data))
             setImage(null)
             setIsImage(false)
             setPost('')
-            
+
         })
     }
 
@@ -68,19 +64,16 @@ const MyPostWidget = ({pictureUrl}) => {
                     } />
             </FlexBetween>
             {isImage && (
-
                 <Box
                     borderRadius={'5px'}
                     p='1rem'
                     mt='1rem'
                     border={`1px solid ${medium}`}
                 >
-
                     <Dropzone
                         acceptedFiles={'.jpg,.jpeg,.png'}
                         onDrop={acceptedFiles => setImage(acceptedFiles[0])}>
                         {({ getRootProps, getInputProps }) => (
-
                             <Box
                                 border={`1px dashed ${theme.palette.primary.main}`}
                                 p='1rem'
@@ -97,9 +90,7 @@ const MyPostWidget = ({pictureUrl}) => {
 
                         )}
                     </Dropzone>
-
                 </Box>
-
             )}
             <Divider sx={{ margin: '1.25rem 0' }} />
             <FlexBetween>
@@ -135,7 +126,6 @@ const MyPostWidget = ({pictureUrl}) => {
             </FlexBetween>
         </WidgetWrapper>
     )
-
 }
 
 export default MyPostWidget

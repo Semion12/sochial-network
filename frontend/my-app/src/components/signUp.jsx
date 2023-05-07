@@ -1,18 +1,11 @@
 import { useTheme } from '@emotion/react'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { Formik } from 'formik'
-
 import Dropzone from 'react-dropzone'
 import * as yup from 'yup'
 import { FlexBetween } from '../pages/navbar/flexBetween'
 import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch } from 'react-redux'
-
 import axios from 'axios'
-
-
-
-
 
 const regiserSchema = yup.object().shape({
     firstName: yup.string().required('required'),
@@ -24,8 +17,6 @@ const regiserSchema = yup.object().shape({
     picture: yup.string().required('required')
 })
 
-
-
 const initialRegisterValues = {
     firstName: '',
     lastName: '',
@@ -36,31 +27,15 @@ const initialRegisterValues = {
     picture: ''
 }
 
-
-
 const SignUp = ({ setPageType }) => {
-
-
-
-
-    const dispatch = useDispatch()
     const { palette } = useTheme()
 
-
-
-
     const register = async (values, onSubmitProps) => {
-        
         const formData = new FormData()
-
-
         for (let value in values) {
             if (value !== 'picture') {
                 formData.append(value, values[value])
             }
-
-
-
         }
         formData.append('pictureUrl', values.picture.name)
         await axios.post('http://localhost:3001/auth/register', formData, {
@@ -75,16 +50,7 @@ const SignUp = ({ setPageType }) => {
                 setPageType('login')
             }
         })
-
-        
-
-
-
-
     }
-
-
-
     return (
         <Formik
             onSubmit={register}
@@ -106,13 +72,10 @@ const SignUp = ({ setPageType }) => {
             }) => (
 
                 <form onSubmit={handleSubmit}>
-                    
                     <Box
                         display={'grid'}
                         gap={'30px'}
                         gridTemplateColumns='repeat(4, minmax(0, 1fr))'>
-
-
                         <TextField
                             name='firstName'
                             label='First Name'
@@ -148,7 +111,6 @@ const SignUp = ({ setPageType }) => {
                             sx={{ gridColumn: 'span 4' }}
                         />
                         <Box
-
                             p='1rem'
                             sx={{ border: '1px solid black', gridColumn: 'span 4' }}>
                             <Dropzone
@@ -174,7 +136,6 @@ const SignUp = ({ setPageType }) => {
                             </Dropzone>
                         </Box>
                         <TextField
-
                             name='email'
                             label='email'
                             onChange={handleChange}
@@ -191,18 +152,9 @@ const SignUp = ({ setPageType }) => {
                             error={Boolean(touched.password) && Boolean(errors.password)}
                             sx={{ gridColumn: 'span 4' }}
                         />
-
-
-
-
-
-
-
-
                     </Box>
                     <Box>
                         <Button
-
                             fullWidth
                             type="submit"
                             sx={{
@@ -235,10 +187,8 @@ const SignUp = ({ setPageType }) => {
                         </Typography>
                     </Box>
                 </form>
-
             )
             }
-
         </Formik >
     )
 }

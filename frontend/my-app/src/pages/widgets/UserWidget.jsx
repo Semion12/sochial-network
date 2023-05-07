@@ -2,7 +2,7 @@ import { useTheme } from "@emotion/react"
 import { Box, Divider, Typography } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import UserImage from "../../components/userImage"
 import { WidgetWrapper } from "../../components/widgetWrapper"
 import { FlexBetween } from '../navbar/flexBetween'
@@ -11,32 +11,27 @@ import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import { setFriend } from "../../state/authReducer"
+
 
 export const UserWidget = ({ userId, pictureUrl }) => {
-
     const [user, setUser] = useState(false)
-    
     const token = useSelector((state) => state.auth.token)
-   
     const theme = useTheme()
     const dark = theme.palette.neutral.dark
     const medium = theme.palette.neutral.medium
     const main = theme.palette.neutral.main
-    const friends = useSelector((state)=>state.auth.user.friends)
-    
+    const friends = useSelector((state) => state.auth.user.friends)
+
     const getUser = async () => {
         await axios.get(`http://localhost:3001/users/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token} `
             }
-        }).then(({data})=>{
-            
+        }).then(({ data }) => {
             setUser(data)
-            
         })
 
-    
+
     }
     useEffect(() => {
         getUser()
@@ -80,7 +75,9 @@ export const UserWidget = ({ userId, pictureUrl }) => {
                     <Typography color={medium}>{user.occupation}</Typography>
                 </Box>
             </Box>
+
             <Divider light />
+
             <Box p='1rem 0'>
                 <FlexBetween mb='0.5rem' >
                     <Typography color={medium}>Who viewed your profile</Typography>
@@ -93,7 +90,9 @@ export const UserWidget = ({ userId, pictureUrl }) => {
 
 
             </Box>
+
             <Divider light />
+
             <Box p='1rem 0'>
                 <Typography mb='1rem' fontWeight={500} color={main} fontSize='1rem'>
                     Social profiles

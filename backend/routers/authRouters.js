@@ -1,6 +1,5 @@
 
 import { Router } from 'express'
-import multer from 'multer'
 import { login, reqister } from '../controllers/auth.js'
 import {validator} from '../middleWare/validator.js'
 

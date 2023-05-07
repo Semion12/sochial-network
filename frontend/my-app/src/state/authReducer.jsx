@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   mode: 'light',
-
   user: null,
   token: null,
   posts: []
@@ -18,14 +17,10 @@ const authSlice = createSlice({
       state.token = null
     },
     setLogin: (state, action) => {
-
       state.token = action.payload.token
       state.user = action.payload.user;
-
-
     },
     setPosts: (state, action) => {
-
       state.posts = action.payload
     },
     setPost: (state, action) => {
@@ -53,8 +48,6 @@ const authSlice = createSlice({
 
           return post.comments
         })
-
-
       }
     }
   },

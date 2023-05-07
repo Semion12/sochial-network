@@ -2,8 +2,6 @@ import { useTheme } from "@emotion/react"
 import { Box, Typography, useMediaQuery } from "@mui/material"
 import Form from "../../components/Form"
 
-
-
 const LoginPage = () => {
     const theme = useTheme()
     const isNonMobileScreen = useMediaQuery('(min-width:1000px')
@@ -18,14 +16,13 @@ const LoginPage = () => {
                 width: isNonMobileScreen ? '73%' : '50%',
                 p: '2rem',
                 m: '2rem auto',
-                borderRadius:'1.5rem',
+                borderRadius: '1.5rem',
                 backgroundColor: theme.palette.background.alt,
 
             }}>
-            <Form />
+                <Form />
             </Box>
         </Box>
-
     )
 }
 

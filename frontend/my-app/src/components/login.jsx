@@ -1,28 +1,16 @@
 import { useTheme } from '@emotion/react'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { Formik } from 'formik'
-import { useState } from 'react'
-import Dropzone from 'react-dropzone'
 import * as yup from 'yup'
-import { FlexBetween } from '../pages/navbar/flexBetween'
-import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { setLogin } from '../state/authReducer'
 import axios from 'axios'
-import { Navigate, useNavigate } from 'react-router'
-
-
-
-
-
-
+import {useNavigate } from 'react-router'
 
 const loginSchema = yup.object().shape({
     email: yup.string().email('invalid email').required('required'),
     password: yup.string().required('required')
 })
-
-
 
 const initialLoginValues = {
     email: '',
@@ -30,14 +18,9 @@ const initialLoginValues = {
 }
 
 const Login = ({ setPageType }) => {
-
-
-
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { palette } = useTheme()
-
 
     const login = async (values, onSubmitProps) => {
         await axios.post('http://localhost:3001/auth/login', JSON.stringify(values), {
@@ -47,31 +30,14 @@ const Login = ({ setPageType }) => {
                 "Content-Type": "application/json"
             }
         }).then(({ data }) => {
-            console.log(data)
             dispatch(setLogin({
                 user: data.user,
                 token: data.token
             }))
         })
-
-
-
-
         onSubmitProps.resetForm()
         navigate('/home')
-
-
-
     }
-
-
-
-
-
-
-
-
-
     return (
         <Formik
             onSubmit={login}
@@ -91,16 +57,13 @@ const Login = ({ setPageType }) => {
                 /* and other goodies */
 
             }) => (
-
                 <form onSubmit={handleSubmit}>
-
                     <Box
                         display={'grid'}
                         gap={'30px'}
                         gridTemplateColumns='repeat(4, minmax(0, 1fr))'>
 
                         <TextField
-
                             name='email'
                             label='email'
                             onChange={handleChange}
@@ -120,7 +83,6 @@ const Login = ({ setPageType }) => {
                     </Box>
                     <Box>
                         <Button
-
                             fullWidth
                             type="submit"
                             sx={{
@@ -152,12 +114,9 @@ const Login = ({ setPageType }) => {
                             Already have an account ? Login here
                         </Typography>
                     </Box>
-
                 </form>
-
             )
             }
-
         </Formik >
     )
 }

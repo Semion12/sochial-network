@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { createPosts, getMyposts, getUserPosts, createComment} from "../controllers/posts.js";
 import {verifyToken} from '../middleWare/verifyToken.js'
-import multer from "multer";
 import upload from '../middleWare/file.js'
 const router = Router()
 
